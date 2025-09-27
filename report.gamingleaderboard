@@ -1,0 +1,344 @@
+Gaming Leaderboard Management System
+ Introduction
+ The Gaming Leaderboard Management System is a database-powered application 
+that keeps track of player performance across different competitions. In the world 
+of competitive gaming, having accurate records of players and their scores is 
+crucial for fair rankings and transparent results. Relying on manual tracking often 
+leads to mistakes and becomes inefficient, especially when managing multiple 
+players and tournaments at once.
+ To solve this, the project applies Database Management System (DBMS) concepts 
+to build a structured and dependable platform. It stores player details, competition 
+data, and scores in a relational database, ensuring both accuracy and easy access. 
+On top of that, a user-friendly web interfacedeveloped with PHP, HTML, and 
+CSSlets users view leaderboards in real time. Players are ranked automatically 
+based on their scores, making the system both efficient and reliable.
+ Project  overview
+ Description of the Gaming Leaderboard Management System
+ The Gaming Leaderboard Management System is a web-based application that 
+combines a relational database with a simple, user-friendly interface to manage and 
+display player rankings in gaming competitions. It was developed as a practical 
+example of how DBMS concepts can address real-world challenges in competitive 
+environments where accurate score tracking and fair rankings are essential.
+ At its core, the system uses a MySQL database designed with a normalized schema 
+to reduce redundancy and maintain consistency. The database is built around three 
+main entitiesPlayers, Competitions, and Scoreswith relationships that allow 
+data to be stored and retrieved efficiently. Since players can join multiple 
+competitions, their performance records in the Scores table serve as the foundation 
+for calculating leaderboards.
+On the frontend, HTML and CSS handle structure and design, while PHP manages 
+the backend logic, connecting to the database and dynamically fetching 
+leaderboard data.
+ Explanation of the Role of the Database in Supporting the Management 
+System:
+ The database is the backbone of the Gaming Leaderboard System, ensuring accurate 
+and efficient management of data. Its role can be summarized in three main points:
+ 1. Data Storage & Integrity – Stores players, competitions, and scores in a 
+structured way, maintaining consistency with primary and foreign keys.
+ 2. Dynamic Leaderboard Generation – Uses SQL queries to rank players 
+automatically, with updates reflected instantly on the leaderboard.
+ 3. Scalability & Flexibility – The schema can be easily extended to support more 
+players, competitions, and future features like authentication or statistics.
+ Requirements Analysis
+ The Requirements Analysis identifies the key functionalities and system needs for 
+the Gaming Leaderboard Management System. It ensures that both the database 
+and application meet the objectives effectively.
+ 1. Functional Requirements
+ • Store and manage player information (name, email, etc.).
+ • Store and manage competition details (name, start/end dates).
+ • Record and update player scores for each competition.
+ • Automatically generate and display a ranked leaderboard based on scores.
+ • Highlight top three players visually (Gold, Silver, Bronze).
+ 2. Non-Functional Requirements
+ • Accuracy: Scores and rankings must be correct at all times.
+ • Usability: Simple and intuitive web interface for viewing and updating 
+scores.
+ • Scalability: Able to handle increasing numbers of players and competitions.
+ • Performance: Leaderboard updates and data retrieval must be fast.
+ 3. System Requirements
+• Software: XAMPP or WAMP server (Apache + MySQL + PHP), web 
+browser.
+ • Hardware: Standard computer with internet access for testing.
+ • Database: MySQL for managing relational data of players, competitions, and 
+scores.
+ Identification of Key Entities, Attributes, and Relationships
+ Based on the requirements, the following entities, attributes, and relationships are 
+identified:
+ Player:
+ Attributes: Player_ID (PK), Password, Username,Score
+ Relationship: A player can participate in multiple competitions.
+ Competition:
+ Attributes: Competition_ID (PK), Competition_Name, Game_Type, Match_Date, 
+Relationship: A competition can have many players.
+ Score:
+ Attributes: Score_ID (PK), Player_ID (FK), Competition_ID (FK), 
+Relationship: Each score belongs to one player in one competition.
+ Relationships:
+ ➢ One Player can participate in many Competitions.
+ ➢ One Competition can include many Players.
+ ➢ The Score entity connects players and competitions, making it a many-to-many 
+relationship resolved through score records.
+Entity-Relationship Diagram (ERD)
+ Presentation of the ERD
+ Below is the conceptual ERD for the Gaming Leaderboard Management System:
+Explanation of Entities, Attributes, and Relationships
+ 1.Player
+ Attributes:
+ Player_ID (PK): Unique identifier for each player.
+ Player_Name: Full name of the player.
+ Username: Gaming alias or nickname.
+ Role: Represents participants in the competitions.
+ Relationships: A player can participate in many competitions through the Score 
+entity.
+ 2.Attributes:
+ Competition_ID (PK): Unique identifier for each competition.
+ Competition_Name: Name/title of the competition.
+ Game_Type: Type of game (e.g., FPS, strategy, racing).
+ Match_Date: The date when the competition starts.
+ Role: Represents the gaming events.
+ Relationships: A competition can include multiple players, linked through the 
+Score entity.
+ 3.Score
+ Attributes:
+ Score_ID (PK): Unique identifier for each score record.
+ Player_ID (FK): Foreign key referencing Player.
+ Competition_ID (FK): Foreign key referencing Competition.
+ Score_Value: The points earned by the player.
+ Rank: The position of the player in the leaderboard.
+Role: Acts as a bridge entity connecting players and competitions.
+ Relationships: Represents the many-to-many relationship between Player and 
+Competition.
+ Normalization Process and Resulting Schema Design
+ The database design follows the normalization process to remove redundancy and 
+ensure data integrity:
+  First Normal Form (1NF)
+ Ensures that all attributes contain atomic (indivisible) values.
+ Example: Player entity has single-valued attributes like Player_Name, Email, etc.
+  Second Normal Form (2NF)
+ Ensures no partial dependency on composite keys.
+ Since Player_ID and Competition_ID are stored separately in Score, there are no 
+partial dependencies.
+  Third Normal Form (3NF)
+ Ensures no transitive dependency between non-key attributes.
+ Example: In Score, Score_Value determines Rank, but since ranking is 
+dynamically generated, it is acceptable and does not create redundancy.
+ ❖ Final Schema Design:
+ Player(Player_ID, Player_Name, Username, Password)
+ Competition(Competition_ID, Competition_Name,Match_Date)
+ Score(Score_ID, Player_ID, Competition_ID,  )
+ 5. Database Schema
+Description of the Database Schema
+ The database schema for the Gaming Leaderboard Management System is designed 
+to store information about players, competitions, and scores in a structured and 
+efficient way. It is derived from the Entity-Relationship Diagram (ERD) and ensures 
+data integrity, minimizes redundancy, and supports efficient queries for generating 
+leaderboards.
+ The schema includes the following key tables:
+ Players – stores information about the users or gamers.
+ Competitions – stores information about different competitions or tournaments.
+ Scores – stores players’ scores in each competition.
+ Table:
+ Admins:
+ Admins insert :
+ INSERT INTO admins (username, password)
+ VALUES ('AdminRasel', 'hashed_adminpass1'), 
+('AdminNusrat', 'hashed_adminpass2')
+ 2.Player:
+ CREATE TABLE players ( id INT AUTO_INCREMENT PRIMARY KEY, 
+username VARCHAR(50) NOT NULL UNIQUE,
+ password VARCHAR(255) NOT NULL,
+ score INT DEFAULT 0 );    
+ Players  Insert:
+INSERT INTO players (username, password, score)
+ VALUES ('Rafiq', 'hashed_password1', 1200), 
+('Mitu', 'hashed_password2', 980),
+ ('Sajid', 'hashed_password3', 1500),
+ ('Shanta', 'hashed_password4', 1100),
+ ('Biplob', 'hashed_password5', 750);
+ Score:
+ CREATE TABLE Scores (
+    Score_id INT PRIMARY KEY AUTO_INCREMENT,
+    Player_id INT NOT NULL,
+    Competition_id INT NOT NULL,
+    Score_value INT NOT NULL,
+ );
+ Score insert:
+ INSERT INTO Scores (player_id, competition_id, score_value)
+ VALUES
+ (1, 1, 2500),
+ (2, 1, 3200),
+ (1, 2, 1800),
+ (3, 1, 2900);
+4.Competition:
+ CREATE TABLE Competitions (
+    Competition_id INT PRIMARY KEY AUTO_INCREMENT,
+    Name VARCHAR(100) NOT NULL,
+    Start_date DATETIME NOT NULL,
+    End_Date DATETIME NOT NULL,
+    Game_Type VARCHAR(50) NOT NULL
+ );
+ competition insert:
+ INSERT INTO Competitions (name, start_date, end_date, game_type)
+ VALUES
+ ('Summer Championship', '2025-07-01 10:00:00', '2025-07-10 22:00:00', 'FPS'),
+ ('World Cup', '2025-08-15 09:00:00', '2025-08-30 23:59:00', 'MOBA'),
+ ('Pro League', '2025-09-05 12:00:00', '2025-09-20 21:00:00', 'Battle Royale');
+ Matches
+ CREATE TABLE IF NOT EXISTS matches ( id INT NOT NULL 
+AUTO_INCREMENT PRIMARY KEY,
+ competition_id INT NOT NULL, player_id INT NOT NULL,
+ score INT DEFAULT 0, 
+match_date DATETIME DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY 
+(competition_id), 
+ REFERENCES competition(id) ON DELETE CASCADE, FOREIGN KEY 
+(player_id) REFERENCES players(id) ON DELETE CASCADE );
+Matches Insert:
+ INSERT INTO matches (competition_id, player_id, score, match_date) 
+VALUES (1, 1, 200, '2025-04-14 10:00:00'),
+ (1, 2, 150, '2025-04-14 11:00:00'),
+ (2, 3, 250, '2025-06-05 15:30:00'),
+ (3, 4, 300, '2025-07-02 16:00:00'),
+ (3, 5, 180, '2025-07-02 17:00:00'),
+ (4, 1, 400, '2025-08-02 18:00:00'),
+ (5, 2, 220, '2025-12-02 12:00:00'),
+ (5, 3, 310, '2025-12-02 13:00:00');
+ Game:
+ CREATE TABLE games ( id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ name VARCHAR(100) NOT NULL UNIQUE,
+ description TEXT );
+ Games insert:
+ INSERT INTO games (name, description)
+ VALUES ('Ludo Champion', 'Classic ludo game popular in every Bengali home'),
+ ('Carrom Clash', 'Carrom board tournament style'),
+ ('Cricket Mania', 'Street cricket style competition'),
+ ('Football Fever', 'Local football knockout matches'), 
+('Chess Mela', 'Village fair style chess tournament');
+ Justification:
+ • The schema avoids duplication (normalized).
+ • Foreign keys enforce referential integrity.
+• Data types chosen for performance and scalability.
+ Performance optimization:
+ Strategies Employed to Optimize Database Performance
+ To ensure efficient handling of player scores and competition results, several 
+performance optimization strategies were implemented. The database schema was 
+normalized to Third Normal Form (3NF) to eliminate redundancy while maintaining 
+data integrity. Query optimization techniques, such as minimizing joins and 
+selecting only required attributes, were used to reduce query execution time. 
+Additionally, caching mechanisms can be employed in future development to 
+improve retrieval speeds for frequently accessed leaderboard data.
+ Indexing Techniques
+ Indexing plays a vital role in improving database performance, especially for 
+leaderboard queries where frequent sorting and ranking operations are performed. 
+The following indexing techniques were applied:
+  Primary Indexes: Defined on unique keys such as Player_ID and 
+Competition_ID to enable quick lookups.
+  Composite Indexes: Implemented on columns commonly used together in 
+queries, such as (Competition_ID, Score) to speed up ranking queries.
+  Clustered Indexing: Considered on the Score attribute to enhance the 
+efficiency of ordering operations when generating leaderboards.
+ Evaluation Under Load Conditions
+ The chosen normalization level (3NF) provides a balance between data consistency 
+and performance. Under light to moderate loads (few hundred players and 
+competitions), the database demonstrates efficient query execution with minimal 
+latency. However, under heavy loads (tens of thousands of players and scores), query 
+response times may slow due to frequent joins and ranking operations. In such cases, 
+denormalization of certain tables or the use of materialized views may be necessary 
+to optimize read-heavy operations.
+ Overall, the database design achieves satisfactory performance for the current 
+system scope, while leaving room for future enhancements such as sharding, 
+partitioning, or distributed databases to support large-scale gaming environments.
+ System Interface
+ • UI Interface
+ • Player Registration Form
+ • Player Login
+• Deshboard
+ • Competition Creation Page
+ • Admin Login
+• Admin Dashboard
+ Sample Queries
+ Query 1: Display Matches for a Specific Player
+ SELECT P.Name, SUM(S.Points) AS TotalScore
+ FROM Score S
+ JOIN Player P ON S.PlayerID = P.PlayerID
+ GROUP BY P.PlayerID
+ ORDER BY TotalScore DESC
+ LIMIT 5;
+Query 2: Top 3 players overall
+ SELECT 
+ p.username AS Player, 
+ SUM(m.score) AS TotalScore
+ FROM matches m
+ JOIN players p ON m.player_id = p.id
+ GROUP BY p.id
+ ORDER BY TotalScore DESC
+ Limitations and Future Works
+ Limitations
+ ➢ Scalability Issues
+ The current system may not efficiently handle very large numbers of players or 
+competitions if the database size grows significantly. Query performance might 
+degrade without proper indexing or optimization.
+ ➢ Real-Time Updates
+ The leaderboard may not always reflect real-time updates if data refresh is delayed 
+or if heavy traffic occurs during peak gaming sessions.
+ ➢ Security Concerns
+ Basic authentication and data validation are implemented, but advanced security 
+measures such as encryption, intrusion detection, or protection against SQL injection 
+may not be fully developed.Also passwords are weak for experimental purpose.
+ ➢ Limited Analytics
+The system primarily focuses on storing and displaying scores. It does not yet 
+provide in-depth analytics, such as player performance trends, win/loss ratios, or 
+predictive insights.
+ ➢ Device and Platform Dependency
+ The current design may be optimized for web-based access only. Mobile and cross
+platform support may be limited or absent.
+ ➢ Customization Restrictions
+ Game developers or administrators may have limited ability to customize ranking 
+criteria, scoring rules, or leaderboard visualization.
+ Future Work:
+ 1. Database Optimization and Scalability
+ Implement advanced indexing, caching strategies, and distributed database 
+solutions to handle larger player bases and ensure faster queries.
+ 2. Real-Time Leaderboard
+ Introduce WebSocket or streaming-based updates so that players can view live 
+score changes without refreshing the page.
+ 3. Enhanced Security Features
+ Add role-based access control (RBAC), encrypted data storage, and two-factor 
+authentication to ensure system security.
+ 4. Advanced Analytics and Insights
+ Integrate data visualization tools and AI-based analysis to provide deeper 
+insights into player performance and competition dynamics.
+ 5. Mobile and Cross-Platform Support
+ Develop mobile-friendly interfaces and APIs that allow integration with mobile 
+apps, consoles, or third-party gaming platforms.
+6. Gamification Features
+ Add badges, achievements, seasonal rankings, and reward systems to increase 
+player engagement and competitiveness.
+ 7. Integration with External System
+ Provide APIs for integrating with external games, payment systems, or cloud 
+services for broader usability.
+ Conclusion
+ The Gaming Leaderboard System demonstrates how Database Management 
+System (DBMS) principles can be applied to create a functional and interactive 
+platform for managing players, competitions, and scores. Built with MySQL as the 
+backend and PHP, HTML, and CSS for the frontend, the system supports real-time 
+data handling and dynamic updates, such as recording scores and generating live 
+leaderboards.
+ Key Achievements
+ • Secure login system for both players and administrators.
+ • Efficient data storage and retrieval through relational tables (Players, 
+Competitions, and Scores).
+ • Instant leaderboard updates, reflecting score changes as soon as they are 
+entered by admins.
+ • User-friendly interface with a clean, visually appealing design for easy 
+navigation across competitions, matches, and player stats.
+ Overall, the project highlights the role of data integrity, dynamic web design, and 
+user interactivity in building reliable database-driven applications. Looking ahead, 
+it can be enhanced with features such as competition-specific leaderboards, 
+detailed player profiles, and analytics, making it a scalable solution for modern 
+gaming communities.
+11. References
+ ❖ Ramez Elmasri, Shamkant B. Navathe, S. (2016). Fundamentals of Database 
+Systems.
+ ❖ MySQL Documentation: https://dev.mysql.com/doc
+ ❖ W3Schools SQL Tutorial: https://www.w3schools.com/sql
+ ❖ Google
+ ❖ Little use of AI (Programming Purpose
